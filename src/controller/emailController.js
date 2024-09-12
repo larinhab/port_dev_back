@@ -3,6 +3,10 @@ const emailService = require('../service/emailService')
 const sendEmail = async(request, response) => {
     const { name, email, phone, message } = request.body
 
+    if(!name || !email || !phone || message){
+        return("Os campos são obrigatórios")
+    }
+
     try{
         await emailService.sendEmail({ name, email, phone, message })
             response.status(200).json({ success: true, message: "E-mail enviado com sucesso!"})
